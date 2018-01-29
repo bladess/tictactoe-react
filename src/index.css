@@ -55,7 +55,7 @@ body {
     background: pink;
     color: blue;
     animation-duration: 25s;
-    animation: 5s infinite rotation;
+    animation: 5s infinite alternate rotation;
   }
 
   @keyframes rotation {
