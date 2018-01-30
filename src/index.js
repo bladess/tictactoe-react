@@ -12,7 +12,9 @@ function Reset(props){
 }
 function Square(props) {
   return (
-    <button className={"square "+ (props.value !== null ? 'clicked':'unclicked' )} onClick={props.onClick}>
+    <button className={"square "+ 
+    (props.value !== null ? ('clicked '+ (props.value === 'X' ? 'caseX' : 'caseO')) :'unclicked' )} 
+    onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -27,6 +29,9 @@ class Board extends React.Component {
       squares: Array(9).fill(null),
       xIsNext: true,
       nbCoup : 0, 
+      pointX : 0,
+      pointO : 0,
+      nul:0,
     };
   }
   reset(){
@@ -58,16 +63,46 @@ class Board extends React.Component {
   }
   renderReset(){
     return <Reset
-    onClick={() => this.reset()}
+    onClick={() => this.resetScore()}
     />;
+  }
+  resetScore(){
+    this.reset();
+    this.setState({
+      pointX:0,
+      pointO:0,
+      nul:0,
+    })
   }
   render() {
     const winner = calculateWinner(this.state.squares);
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
+      let score;
+      if(winner === 'X'){
+        score = this.state.pointX;
+        score++;
+        this.setState({
+          pointX: score,
+        })
+      }
+      else{
+        score = this.state.pointO;
+        score++;
+        this.setState({
+          pointO: score,
+        })
+      }
+      this.reset();
     } else if(this.state.nbCoup === 9){
       status = 'Match nul';
+      let nul = this.state.nul;
+      nul++;
+      this.setState({
+        nul : nul,
+      });
+      this.reset();
     }
     else{
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
@@ -75,6 +110,19 @@ class Board extends React.Component {
     return (
       <div>
         <div className="status">{status}</div>
+        <div>
+            <ul>
+              <li>
+                Score X: {this.state.pointX}
+              </li>
+              <li>
+                Score O:{this.state.pointO}
+              </li>
+              <li>
+                Nul : {this.state.nul}
+              </li>
+            </ul>
+        </div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}

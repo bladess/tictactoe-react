@@ -49,23 +49,26 @@ body {
     margin-left: 20px;
   }
   .unclicked{
-    background: blue;
+    background: grey;
   }
   .clicked{
-    background: pink;
-    color: blue;
+    background: black;
     animation-duration: 25s;
     animation: 5s infinite alternate rotation;
   }
-
+  .caseX{
+    border: 2px solid red;
+    color: red;
+  }
+  .caseO{
+    border: 2px solid blue;
+    color: blue;
+  }
   @keyframes rotation {
     0% {
       font-size: 100px;
     }
-    30% {
-      font-size: 50px;
-    }
     100% {
-      font-size: 25px;
+      font-size:25px;
     }
   }
