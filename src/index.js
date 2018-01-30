@@ -15,7 +15,6 @@ function Square(props) {
     <button className={"square "+ 
     (props.value !== null ? ('clicked '+ (props.value === 'X' ? 'caseX' : 'caseO')) :'unclicked' )} 
     onClick={props.onClick}>
-      {props.value}
     </button>
   );
 }
@@ -54,6 +53,38 @@ class Board extends React.Component {
       xIsNext: !this.state.xIsNext,
       nbCoup: nbCoups,
     });
+    let winner  = calculateWinner(squares);
+    if(winner){
+      if(winner === 'X'){
+        let score = this.state.pointX;
+        score++;
+        this.setState(
+          {
+            pointX:score,
+          }
+        )
+      }
+      else{
+        let score = this.state.pointO;
+        score++;
+        this.setState(
+          {
+            pointO:score,
+          }
+        )
+      }
+      this.reset();
+    }
+    else if(nbCoups === 9){
+        let score = this.state.nul;
+        score++;
+        this.setState(
+          {
+            nul:score,
+          }
+        )
+        this.reset();
+    }
   }
   renderSquare(i) {
     return <Square
@@ -75,38 +106,8 @@ class Board extends React.Component {
     })
   }
   render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-      let score;
-      if(winner === 'X'){
-        score = this.state.pointX;
-        score++;
-        this.setState({
-          pointX: score,
-        })
-      }
-      else{
-        score = this.state.pointO;
-        score++;
-        this.setState({
-          pointO: score,
-        })
-      }
-      this.reset();
-    } else if(this.state.nbCoup === 9){
-      status = 'Match nul';
-      let nul = this.state.nul;
-      nul++;
-      this.setState({
-        nul : nul,
-      });
-      this.reset();
-    }
-    else{
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
+    let status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    
     return (
       <div>
         <div className="status">{status}</div>

@@ -59,10 +59,16 @@ body {
   .caseX{
     border: 2px solid red;
     color: red;
+    background: url('croix.jpg');
+    background-position: center; 
+
   }
   .caseO{
     border: 2px solid blue;
     color: blue;
+    background: url("rond.png");
+    background-position: center; 
+
   }
   @keyframes rotation {
     0% {
