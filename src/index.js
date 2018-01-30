@@ -15,6 +15,7 @@ function Square(props) {
     <button className={"square "+ 
     (props.value !== null ? ('clicked '+ (props.value === 'X' ? 'caseX' : 'caseO')) :'unclicked' )} 
     onClick={props.onClick}>
+    {props.value}
     </button>
   );
 }
